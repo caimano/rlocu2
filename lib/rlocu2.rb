@@ -15,5 +15,6 @@ module Rlocu2
 
   end
 
+  require 'rlocu2/venues'
   require 'rlocu2/client'
 end

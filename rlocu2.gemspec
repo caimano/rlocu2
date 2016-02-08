@@ -9,11 +9,9 @@ Gem::Specification.new do |s|
   s.description = "The Locu API gives you access to real-time local business data, from opening hours to price lists, such as restaurant menus"
   s.authors     = ["Andrea Cadamuro"]
   s.email       = 'caimandrea@gmail.com'
-  s.files = [
-      'lib/rlocu2.rb',
-      'lib/client/client.rb'
-  ]
-
+  s.files = `git ls-files`.split("\n")
+  s.test_files = `git ls-files -- {spec}/*`.split("\n")
+  s.require_paths = ["lib"]
   s.homepage    = 'http://www.andreacadamuro.com'
   s.license     = 'MIT'
 
