@@ -2,18 +2,22 @@ module Rlocu2
   # Wrapper for the Locu API v 2.0
   #
   class Client
-    include Venues
-
     attr_reader :api_key
+
+    DEFAULT_CONNECTION_MIDDLEWARE = [
+        Faraday::Request::UrlEncoded,
+        FaradayMiddleware::ParseJson
+    ]
+
 
     def initialize(options={})
       @api_key = options[:api_key] || Rlocu2.api_key
+      @connection_middleware = options[:connection_middleware] || Rlocu2.connection_middleware || []
+      @connection_middleware += DEFAULT_CONNECTION_MIDDLEWARE
     end
 
     def connection
-      params = {}
-      params[:api_key] = @api_key if @api_key
-      @connection ||= Faraday::Connection.new(:url => api_url, :params => params, :headers => default_headers) do |builder|
+      @connection ||= Faraday::Connection.new(:url => api_url, :headers => default_headers) do |builder|
         @connection_middleware.each do |middleware|
           builder.use *middleware
         end
@@ -22,8 +26,19 @@ module Rlocu2
     end
 
     def api_url
-      'https://api.locu.com'
+      'https://api.locu.com/v2/'
     end
+
+    def return_error_or_body(response, response_body)
+      if response.body['meta'].code == 200
+        response_body
+      else
+        raise Rlocu2::APIError.new(response.body['meta'], response.body['response'])
+      end
+    end
+
+
+    include Venues
 
     private
 
@@ -35,4 +50,26 @@ module Rlocu2
     end
 
   end
+
+  class APIError < StandardError
+
+    attr_reader :code
+    attr_reader :detail
+    attr_reader :type
+    attr_reader :response
+
+    def initialize(error, response)
+      @code   = error.code
+      @detail = error.errorDetail
+      @type   = error.errorType
+      @response = response
+    end
+
+    def message
+      "#{@type}: #{@detail} (#{@code})"
+    end
+    alias :to_s :message
+  end
+
+
 end

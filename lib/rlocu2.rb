@@ -1,11 +1,14 @@
 require 'faraday'
+require 'faraday_middleware'
+require 'json'
 
 directory = File.expand_path(File.dirname(__FILE__))
 
 module Rlocu2
   class << self
 
-    FIELDS = [:api_key ]
+    FIELDS = [:api_key,
+              :connection_middleware]
     attr_accessor(*FIELDS)
 
     def configure
