@@ -30,10 +30,10 @@ module Rlocu2
     end
 
     def return_error_or_body(response, response_body)
-      if response.body['meta'].code == 200
+      if response.status == 200
         response_body
       else
-        raise Rlocu2::APIError.new(response.body['meta'], response.body['response'])
+        raise Rlocu2::APIError.new(response.body)
       end
     end
 
@@ -54,19 +54,17 @@ module Rlocu2
   class APIError < StandardError
 
     attr_reader :code
+    attr_reader :status
     attr_reader :detail
-    attr_reader :type
-    attr_reader :response
 
-    def initialize(error, response)
-      @code   = error.code
-      @detail = error.errorDetail
-      @type   = error.errorType
-      @response = response
+    def initialize(response)
+      @code     = response['http_status']
+      @status   = response['errorType']
+      @detail   = response['error']
     end
 
     def message
-      "#{@type}: #{@detail} (#{@code})"
+      "#{@status}: #{@detail} (#{@code})"
     end
     alias :to_s :message
   end
