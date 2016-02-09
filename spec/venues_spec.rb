@@ -8,6 +8,11 @@ describe Rlocu2 do
     it 'should search a venue' do
       client
       p client
+      params = Hash.new
+      params['fields'] = ['name']
+      params['queries'] = [{'menus' => {'$present' => true}}]
+      response = client.venues_search(params)
+      p response
       expect(1).to eq(1)
     end
   end
