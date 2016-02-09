@@ -6,14 +6,15 @@ describe Rlocu2 do
 
   context 'Venues' do
     it 'should search a venue' do
-      client
-      p client
+
       params = Hash.new
       params['fields'] = ['name']
       params['queries'] = [{'menus' => {'$present' => true}}]
       response = client.venues_search(params)
-      p response
-      expect(1).to eq(1)
+
+      expect(response['status']).to eq('success')
+      expect(response['http_status']).to eq(200)
+      expect(response['venues']).to be_an_instance_of(Array)
     end
   end
 
