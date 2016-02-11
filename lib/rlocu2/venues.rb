@@ -42,7 +42,6 @@ module Rlocu2
         req.body = options.to_json
       end
 
-
       return_error_or_body(response, response.body)
     end
   end
