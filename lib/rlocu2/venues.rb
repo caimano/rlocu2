@@ -32,9 +32,14 @@ module Rlocu2
         end
       end
 
-      if (params.has_key? 'queries') && params['queries'].is_a?(Array)
-        # TODO check possible queries
-        options['venue_queries'] = params['queries']
+      if (params.has_key? 'venue_queries') && params['venue_queries'].is_a?(Array)
+        # TODO check possible venue_queries
+        options['venue_queries'] = params['venue_queries']
+      end
+
+      if (params.has_key? 'menu_item_queries') && params['menu_item_queries'].is_a?(Array)
+        # TODO check possible menu_item_queries
+        options['menu_item_queries'] = params['menu_item_queries']
       end
 
       response = connection.post do |req|
