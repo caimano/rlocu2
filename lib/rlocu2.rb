@@ -18,6 +18,7 @@ module Rlocu2
 
   end
 
-  require 'rlocu2/venues'
+  require 'rlocu2/client/venues'
   require 'rlocu2/client'
+  require 'rlocu2/objects'
 end

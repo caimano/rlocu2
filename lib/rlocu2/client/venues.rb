@@ -18,8 +18,8 @@ module Rlocu2
               'contact',
               'locu', # pro account
               'delivery',
-              'extended'
-              #:media # pro account
+              'extended',
+              'media' # pro account
     ].freeze
 
     def venues_search(params={})
@@ -47,7 +47,8 @@ module Rlocu2
         req.body = options.to_json
       end
 
-      return_error_or_body(response, response.body)
+     return_error_or_body(response, response.body,'venues')
+
     end
   end
 

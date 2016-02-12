@@ -1,12 +1,11 @@
 Gem::Specification.new do |s|
 
   s.name        = 'rlocu2'
-  s.version     = '0.0.1'
-  s.date        = '2016-02-11'
+  s.version     = '0.1.0'
+  s.date        = '2016-02-12'
   s.summary     = "A ruby wrapper for Locu API 2.0"
   s.description = "The Locu API gives you access to real-time local business data, from opening hours to price lists, such as restaurant menus"
   s.authors     = ["Andrea Cadamuro"]
-  s.email       = 'caimandrea@gmail.com'
   s.homepage    = 'https://github.com/caimano/rlocu2'
   s.license     = 'MIT'
 

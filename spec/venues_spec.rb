@@ -17,6 +17,9 @@ describe Rlocu2 do
       expect(response['status']).to eq('success')
       expect(response['http_status']).to eq(200)
       expect(response['venues']).to be_an_instance_of(Array)
+      response['venues'].each do |v|
+        expect(v).to be_an_instance_of(Rlocu2::Venue)
+      end
 
     end
 
@@ -32,6 +35,9 @@ describe Rlocu2 do
       expect(response['http_status']).to eq(200)
       expect(response['venues']).to be_an_instance_of(Array)
 
+      response['venues'].each do |v|
+        expect(v).to be_an_instance_of(Rlocu2::Venue)
+      end
     end
 
     it 'Querying for presence or absence of fields' do
@@ -46,6 +52,9 @@ describe Rlocu2 do
       expect(response['http_status']).to eq(200)
       expect(response['venues']).to be_an_instance_of(Array)
 
+      response['venues'].each do |v|
+        expect(v).to be_an_instance_of(Rlocu2::Venue)
+      end
     end
 
     it 'Querying for venues open during certain hours' do
@@ -60,9 +69,13 @@ describe Rlocu2 do
       expect(response['http_status']).to eq(200)
       expect(response['venues']).to be_an_instance_of(Array)
 
+      response['venues'].each do |v|
+        expect(v).to be_an_instance_of(Rlocu2::Venue)
+      end
     end
-
-    it 'Querying for all restaurants in Boston that serve pizza' do
+=begin
+     # ?!? The "menu_items" key is not supported. (400)
+     it 'Querying for all restaurants in Boston that serve pizza' do
 
       params = Hash.new
       params['fields'] = ['name']
@@ -77,7 +90,7 @@ describe Rlocu2 do
       expect(response['venues']).to be_an_instance_of(Array)
 
     end
-
+=end
     it 'Querying for many attributes' do
 
       params = Hash.new
@@ -90,10 +103,9 @@ describe Rlocu2 do
       expect(response['http_status']).to eq(200)
       expect(response['venues']).to be_an_instance_of(Array)
 
-      response['venues'].each do |r|
-        p r
+      response['venues'].each do |v|
+        expect(v).to be_an_instance_of(Rlocu2::Venue)
       end
-
     end
 
 

@@ -29,9 +29,16 @@ module Rlocu2
       'https://api.locu.com/v2/'
     end
 
-    def return_error_or_body(response, response_body)
+    def return_error_or_body(response, response_body, type)
       if response.status == 200
-        response_body
+        # REMAP & PARSE Objects
+        output = Hash.new
+        output['status'] = response_body['status']
+        output['http_status'] = response_body['http_status']
+        if type == 'venues'
+          output['venues'] = response_body['venues'].each.reduce([]) { |accum, venue| accum << Rlocu2::Venue.new(venue) }
+        end
+        output
       else
         raise Rlocu2::APIError.new(response.body)
       end
@@ -50,6 +57,9 @@ module Rlocu2
     end
 
   end
+
+
+
 
   class APIError < StandardError
 
