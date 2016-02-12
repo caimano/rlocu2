@@ -35,7 +35,7 @@ Make call:
 
     $ client.venues_search(params)
 
-Response is a Rlocu2::Venue object
+Response is an Array of Rlocu2::Venue objects
 
 ## Test - RSpec
 
