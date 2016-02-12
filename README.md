@@ -10,30 +10,29 @@ Add this line to your application's Gemfile:
 
 And then execute:
 
-    $ bundle install
+    bundle install
 
 Or install it yourself:
 
-    $ gem install rlocu2
+    gem install rlocu2
 
 ## Usage
 
 First initialize the client with YOUR API KEY:
 
-    $ require 'rlocu2'
-    $
-    $ client = Rlocu2::Client.new(:api_key => YOUR_API_KEY)
+    require 'rlocu2'
+    client = Rlocu2::Client.new(:api_key => YOUR_API_KEY)
 
 Prepare Hash with params to send to Locu:
 
-    $ params = Hash.new
-    $ params['fields'] = ['name','location','contact']
-    $ params['venue_queries'] = []
-    $ params['venue_queries'] << { 'name' => 'bistro central parc' }
+    params = Hash.new
+    params['fields'] = ['name','location','contact']
+    params['venue_queries'] = []
+    params['venue_queries'] << { 'name' => 'bistro central parc' }
 
 Make call:
 
-    $ client.venues_search(params)
+    client.venues_search(params)
 
 Response is an Array of Rlocu2::Venue objects
 
