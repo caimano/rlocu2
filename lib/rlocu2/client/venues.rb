@@ -42,6 +42,20 @@ module Rlocu2
         options['menu_item_queries'] = params['menu_item_queries']
       end
 
+      # pagination
+      if (params.has_key? 'results_key')
+        options['results_key'] = params['results_key']
+      else
+        if (params.has_key? 'limit')
+          options['limit'] = params['limit']
+          options['results_key'] = 'create'
+        end
+      end
+
+      if (params.has_key? 'offset') && (!params.has_key? 'results_key')
+        options['offset'] = 'offset'
+      end
+
       response = connection.post do |req|
         req.url "venue/search"
         req.body = options.to_json

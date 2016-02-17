@@ -38,6 +38,11 @@ module Rlocu2
         if type == 'venues'
           output['venues'] = response_body['venues'].each.reduce([]) { |accum, venue| accum << Rlocu2::Venue.new(venue) }
         end
+
+        if response_body.has_key? 'next_results_key'
+          output['next_results_key'] = response_body['next_results_key']
+        end
+
         output
       else
         raise Rlocu2::APIError.new(response.body)

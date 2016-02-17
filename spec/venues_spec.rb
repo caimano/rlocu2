@@ -108,7 +108,30 @@ describe Rlocu2 do
       end
     end
 
+=begin
 
+    # My API KEY IS NOT SUPPORTED
+
+    it 'Quering with limit' do
+
+      params = Hash.new
+      params['fields'] = ['name','location','contact']
+      params['venue_queries'] = []
+      params['venue_queries'] << { 'open_hours' => { 'monday' => ['18:00', '20:00']} }
+      params['limit'] = 2
+      response = client.venues_search(params)
+
+      expect(response['status']).to eq('success')
+      expect(response['http_status']).to eq(200)
+      expect(response['venues']).to be_an_instance_of(Array)
+      expect(response['venues'].size).to eq(2)
+
+      response['venues'].each do |v|
+        expect(v).to be_an_instance_of(Rlocu2::Venue)
+      end
+
+    end
+=end
   end
 
 end
