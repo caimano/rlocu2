@@ -36,6 +36,13 @@ Make call:
 
 Response is an Array of Rlocu2::Venue objects
 
+## Other params: 
+(not allowed to all api key)
+    
+    limit
+    offset
+    result_key
+
 ## Test - RSpec
 
 If you want to donwload the repository and test-it remember to change the API KEY inside 'spec/configuration.rb'
